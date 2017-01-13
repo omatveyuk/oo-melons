@@ -35,9 +35,10 @@ class InternationalMelonOrder(AbstactMelonOrder):
     """An international (non-US) melon order."""
     def __init__(self, species, qty, country_code):
         """Initialize melon order attributes"""
-        super(InternationalMelonOrder, self).__init__(species, qty,
-                                                    order_type="international",
-                                                    tax=0.17)
+        super(InternationalMelonOrder, self).__init__(species,
+                                                      qty,
+                                                      order_type="international",
+                                                      tax=0.17)
         self.country_code = country_code
 
     def get_total(self):
@@ -50,3 +51,12 @@ class InternationalMelonOrder(AbstactMelonOrder):
     def get_country_code(self):
         """Return the country code."""
         return self.country_code
+
+
+class GovernmentMelonOrder(AbstactMelonOrder):
+    tax = 0
+    order_type = 'government'
+    passed_inspection = False
+
+    def mark_inspection(self, passed):
+        self.passed_inspection = passed

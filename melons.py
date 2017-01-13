@@ -1,5 +1,6 @@
 """This file should have our order classes in it."""
 from random import randint
+from datetime import datetime
 
 
 class AbstactMelonOrder(object):
@@ -14,7 +15,19 @@ class AbstactMelonOrder(object):
             self.tax = tax
 
     def get_base_price(self):
-        return randint(5, 9)
+        cur_moment = datetime.now()
+        # get number of day in week (1 - Monday, 2 - Tuesday...)
+        weekday = cur_moment.isoweekday()
+        # get hour
+        hour = cur_moment.hour
+        # create random base price
+        base_price = randint(5, 9)
+        print " random price: ", base_price
+        # from 8am-11am and Mon-Fri add extra $4
+        if weekday in range(1, 6) and (hour >= 8 and hour < 11):
+            base_price += 4
+        print "final price: ", base_price
+        return base_price
 
     def get_total(self):
         """Calculate price."""

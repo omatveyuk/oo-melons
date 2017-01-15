@@ -9,6 +9,9 @@ class AbstactMelonOrder(object):
     def __init__(self, species, qty, order_type=None, tax=None):
         self.species = species
         self.qty = qty
+        if qty > 100:
+            #raise TooManyMelonsError("TOO MANY MELONS. quantity > 100")
+            raise TooManyMelonsError
         if order_type:
             self.order_type = order_type
         if tax:
@@ -77,3 +80,15 @@ class GovernmentMelonOrder(AbstactMelonOrder):
 
     def mark_inspection(self, passed):
         self.passed_inspection = passed
+
+
+class TooManyMelonsError(ValueError):
+    """Exception when quantity of melons >100"""
+    __hello = "hello"
+    #def __init__(self, msg):
+    #   super(TooManyMelonsError, self).__init__(msg)
+
+    def __init__(self):
+        """Initialize TooManyMelonsError using init method from ValueError"""
+        super(TooManyMelonsError, self).__init__("No more than 100 melons!")
+        print self.__hello
